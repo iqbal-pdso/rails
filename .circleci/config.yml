@@ -1,22 +1,18 @@
 jobs:
   build:
-    docker:
-      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a build step"    # similar to "script" in GitLab
 
   test:
-    docker:
-      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a test step"
 
   bundler-audit:
     machine:
-      image: ubuntu-2004:202010-01
-    resource_class: medium
+      image: ubuntu-2004:current
+    resource_class: small
     steps:
       - checkout
 
@@ -29,8 +25,6 @@ jobs:
           when: always
 
   integration:
-    docker:
-      - image: cimg/base:stable
     steps:
       - checkout
       - run:
@@ -40,8 +34,6 @@ jobs:
           when: always                    # Even if the job fails, continue to the next stages
 
   prod:
-    docker:
-      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a deploy step."
