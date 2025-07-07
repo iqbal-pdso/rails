@@ -42,7 +42,9 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: echo "This is a deploy step."
+      - run: 
+          command: 
+            echo "This is a deploy step."
           when: on_fail
 
 workflows:
