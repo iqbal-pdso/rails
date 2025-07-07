@@ -14,9 +14,7 @@ jobs:
       - run: echo "This is a test step"
 
   bundler-audit:
-    machine:
-      image: ubuntu-2004:current
-    resource_class: small
+    machine: true
     steps:
       - checkout
 
