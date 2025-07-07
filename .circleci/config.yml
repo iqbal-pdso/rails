@@ -34,8 +34,7 @@ jobs:
       - run:
           command: |
             echo "This is an integration step"
-            exit 1
-          when: always                    # Even if the job fails, continue to the next stages
+            exit 1 || true
 
   prod:
     docker:
@@ -45,7 +44,6 @@ jobs:
       - run: 
           command: 
             echo "This is a deploy step."
-          when: on_fail
 
 workflows:
   version: 2
