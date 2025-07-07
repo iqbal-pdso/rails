@@ -43,6 +43,7 @@ jobs:
     steps:
       - checkout
       - run: echo "This is a deploy step."
+          when: on_fail
 
 workflows:
   version: 2
