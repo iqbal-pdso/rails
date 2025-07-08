@@ -24,7 +24,7 @@ jobs:
       - store_artifacts:
           path: bundle-audit-output.json
           destination: bundler-audit-artifact
-          when: on_fail
+          when: always
 
   integration:
     docker:
