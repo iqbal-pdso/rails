@@ -1,7 +1,7 @@
 jobs:
   build:
     docker:
-      - image: python:3.6 # similar to "image" in GitLab
+      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a build step"
@@ -9,7 +9,7 @@ jobs:
   
   test:
     docker:
-      - image: python:3.6 
+      - image: cimg/base:stable 
     steps:
       - checkout
       - run: echo "This is a test step"
@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
 
-      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json || true
+      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json
 
       - store_artifacts:
           path: bundle-audit-output.json
@@ -28,18 +28,18 @@ jobs:
 
   integration:
     docker:
-      - image: python:3.6 
+      - image: cimg/base:stable 
     steps:
       - checkout
       - run:
           command: 
             echo "This is an integration step"
-            exit 1 || true
+            exit 1
           when: on_fail 
 
   prod:
     docker:
-      - image: python:3.6 
+      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a deploy step."
