@@ -33,6 +33,7 @@ jobs:
       - checkout
       - run:
           command: |
+            #!/bin/bash -o pipefail
             echo "This is an integration step"
             exit 1 || true
           when: always 
