@@ -8,6 +8,17 @@ jobs:
           pip install -r requirements.txt
           python manage.py check
 
+  bundler-audit:
+    machine: true
+    steps:
+      - checkout
+
+      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json
+
+      - store_artifacts:
+          path: bundle-audit-output.json
+          destination: bundler-audit-artifact
+
   test:
     docker:
       - image: python:3.6
@@ -36,9 +47,19 @@ jobs:
 
 workflows:
   version: 2
-  django:
+  rails:
     jobs:
       - build
-      - test
-      - integration
-      - prod
+      - test:
+          requires:
+            - build
+      - bundler-audit:
+          requires:
+            - test
+      - integration:
+          requires:
+            - bundler-audit
+      - prod:
+          type: approval
+          requires:
+            - integration
