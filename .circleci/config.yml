@@ -1,11 +1,15 @@
 jobs:
-  build:                # similar to "image" in GitLab
+  build:
+    docker:
+      - image: python:3.6 # similar to "image" in GitLab
     steps:
       - checkout
       - run: echo "This is a build step"
 
   
   test:
+    docker:
+      - image: python:3.6 
     steps:
       - checkout
       - run: echo "This is a test step"
@@ -23,6 +27,8 @@ jobs:
           when: always
 
   integration:
+    docker:
+      - image: python:3.6 
     steps:
       - checkout
       - run:
@@ -32,6 +38,8 @@ jobs:
           when: always 
 
   prod:
+    docker:
+      - image: python:3.6 
     steps:
       - checkout
       - run: echo "This is a deploy step."
