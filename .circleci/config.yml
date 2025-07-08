@@ -13,7 +13,8 @@ jobs:
       - run: echo "This is a test step"
           
   bundler-audit:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
 
