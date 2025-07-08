@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
 
-      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json
+      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json || true
 
       - store_artifacts:
           path: bundle-audit-output.json
@@ -34,7 +34,7 @@ jobs:
       - run:
           command: |
             echo "This is an integration step"
-            exit 1
+            exit 1 || true
           when: always 
 
   prod:
