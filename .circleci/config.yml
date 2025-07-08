@@ -1,31 +1,17 @@
 jobs:
   build:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/base:stable                   # similar to "image" in GitLab
     steps:
       - checkout
-      - run: echo "This is a build step"
+      - run: echo "This is a build step"          # similar to "script" in GitLab
 
-  
   test:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a test step"
-          
-  bundler-audit:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-
-      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json || true
-
-      - store_artifacts:
-          path: bundle-audit-output.json
-          destination: bundler-audit-artifact
-          when: always
 
   integration:
     docker:
@@ -33,33 +19,23 @@ jobs:
     steps:
       - checkout
       - run:
-          command: 
+          command: |
             echo "This is an integration step"
             exit 1
-          when: on_fail 
 
   prod:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: echo "This is a deploy step."
+      - run: echo "This is a deploy step"
 
 workflows:
   version: 2
-  rails:
+  django:
     jobs:
       - build
-      - test:
-          requires:
-            - build
-      - bundler-audit:
-          requires:
-            - test
-      - integration:
-          requires:
-            - bundler-audit
+      - test
+      - integration
       - prod:
           type: approval
-          requires:
-            - integration
