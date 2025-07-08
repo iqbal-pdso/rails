@@ -1,19 +1,22 @@
 jobs:
   build:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a build step"
 
   
   test:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a test step"
           
   bundler-audit:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
 
@@ -25,7 +28,8 @@ jobs:
           when: always
 
   integration:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
@@ -35,7 +39,8 @@ jobs:
           when: on_fail 
 
   prod:
-    machine: true
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - run: echo "This is a deploy step."
